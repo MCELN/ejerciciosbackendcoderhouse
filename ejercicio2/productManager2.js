@@ -59,7 +59,8 @@ class ProductManager {
     if(index >= 0) {
       this.#products[index][field] = value;
       try {
-        await fs.promises.writeFile(this.#path, JSON.stringify(this.#products));
+        await fs.promises.writeFile(this.#path, JSON.stringify(this.#products))
+          .then(console.log(`El producto con id: ${id} fue modificado en su campo ${field} con el valor de ${value}`));
 
       } catch (error) {
         console.log('El producto no se pudo guardar correctamente');
@@ -68,7 +69,6 @@ class ProductManager {
       console.log('El producto que intenta editar no existe en la lista.');
       return;
     }
-    console.log(`El producto con id: ${id} fue modificado en su campo ${field} con el valor de ${value}`);
 
   }
 
@@ -105,6 +105,7 @@ productManager.getProductById(1);
 productManager.getProductById(2);
 console.log('================================================================');
 productManager.updateProduct(1, 'price', 300);
+console.log('================================================================');
 productManager.getProductById(1);
 console.log('================================================================');
 productManager.deleteProduct(3);
